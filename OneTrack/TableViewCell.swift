@@ -11,13 +11,14 @@ class TableViewCell: UITableViewCell {
             walkNumbers.text = "\(walk)"
             let totalStep = walk + aerobic + run
             let target = UserDefaults.standard.integer(forKey: "target")
-            totalLabel.text = "\(totalStep) / \(target) steps"
+            let targetValue = target == 0 ? 3000 : target
+            totalLabel.text = "\(totalStep) / \(targetValue) steps"
             progressBar.walk = walk
             progressBar.aerobic = aerobic
             progressBar.run = run
 
             // Check when Goal reached
-            if totalStep >= target && targetStackView.isHidden == true{
+            if totalStep >= targetValue && targetStackView.isHidden == true{
                 self.btnConstraint?.isActive = false
                 self.btnTargetConstraint?.isActive = true
 
@@ -40,7 +41,7 @@ class TableViewCell: UITableViewCell {
                     
                 } )
                 
-            } else if totalStep < target  {
+            } else if totalStep < targetValue  {
                 self.btnConstraint?.isActive = true
                 self.btnTargetConstraint?.isActive = false
 
